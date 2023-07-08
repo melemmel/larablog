@@ -47,6 +47,10 @@
                         {!! $post->body !!}
                     </div>
                 </div>
+                <x-post-comment/>
+                <x-post-comment/>
+                <x-post-comment/>
+                <x-post-comment/>
             </article>
         </main>
     </section>
