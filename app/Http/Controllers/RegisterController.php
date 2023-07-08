@@ -17,13 +17,13 @@ class RegisterController extends Controller
     {
         $attributes = request()->validate([
             'name' => 'required|max:255',
-            'username' => 'required|max:255|min:3',
-            'email' => 'required|email|max:255',
+            'username' => 'required|min:3|max:255|unique:users,username',
+            'email' => 'required|email|max:255unique:users,email',
             'password' => 'required|min:7|max:255'
         ]);
         
         $attributes['password'] = bcrypt($attributes['password']);
-        
+
         User::create($attributes);
 
         return redirect('/');
