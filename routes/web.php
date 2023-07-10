@@ -7,6 +7,7 @@ use App\Http\Controllers\SessionsController;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use App\Services\Newsletter;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,21 +21,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('newsletter', function () {
+Route::post('newsletter', function (Newsletter $newsletter) {
 
     request()->validate(['email' => 'required|email']);
 
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us13'
-    ]);
+    
     try {
-        $response = $mailchimp->lists->addListMember('cf1546d95b', [
-            'email_address' => request('email'),
-            'status' => 'subscribed'
-        ]);
+       $newsletter->subscribe(request('email'));
+       
     } catch (\Exception $e) {
         \Illuminate\Validation\ValidationException::withMessages([
             'email' => 'This email could not be added to our newsletter list.',
