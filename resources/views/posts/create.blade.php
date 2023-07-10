@@ -44,7 +44,7 @@
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="body">
                         Body
                     </label>
-                    <textarea class="border border-gray-400 p-2 w-full" name="body" id="body" required>
+                    <textarea class="border border-gray-200 p-2 w-full rounded" name="body" id="body" required>
                         {{ old('body') }}
                     </textarea>
 
@@ -58,17 +58,17 @@
                         Category
                     </label>
 
-                    <select name="category_id" id="category_id">
+                    <select name="category_id" id="category_id" required>
                         @foreach (\App\Models\Category::all() as $category)
-                            <option value="{{ $category->id }}"
-                                {{ old('category_id') === $category->id ? 'selected' : '' }}>
-                                {{ ucwords($category->name) }}
-                            </option>
+                            <option
+                                value="{{ $category->id }}"
+                                {{ old('category_id') == $category->id ? 'selected' : '' }}
+                            >{{ ucwords($category->name) }}</option>
                         @endforeach
                     </select>
                     @error('category')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
+                    <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                @enderror
                 </div>
                 <x-submit-button>Publish</x-submit-button>
             </form>

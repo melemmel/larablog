@@ -40,7 +40,7 @@ class PostController extends Controller
             'slug' => 'required', Rule::unique('post', 'slug'),
             'excerpt' => 'required',
             'body' => 'required',
-            'category' => ['required', Rule::exists('categories', 'id')],
+            'category_id' => ['required', Rule::exists('categories', 'id')],
         ]);
 
         $attributes['user_id'] = auth()->id();
