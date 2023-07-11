@@ -8,6 +8,8 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -61,5 +63,12 @@ class DatabaseSeeder extends Seeder
         //     'excerpt' => 'Lorem ipsum hello world',
         //     'body' => 'Lorem ipsum hello world'
         // ]);
+
+        DB::table('users')->insert([
+            'name' => 'Rommel Ramos',
+            'username' => 'Rommel',
+            'email' => 'ramosrommel2001@gmail.com',
+            'password' => Hash::make('!password')
+        ]);
     }
 }
